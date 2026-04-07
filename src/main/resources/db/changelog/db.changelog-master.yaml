@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ulvi Rustamzade
+      changes:
+        - createTable:
+            tableName: tasks
+            remarks: Tasks
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: priority
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: due_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
