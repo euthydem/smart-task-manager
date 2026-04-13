@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- * DTO для передачи данных задачи между слоями приложения.
+ * Объект передачи данных задачи между слоями приложения.
  */
 @Builder
 @Getter

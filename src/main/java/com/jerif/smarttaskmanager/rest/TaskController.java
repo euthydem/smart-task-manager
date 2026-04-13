@@ -5,7 +5,7 @@ import com.jerif.smarttaskmanager.domain.enums.TaskStatus;
 import com.jerif.smarttaskmanager.dto.TaskCreateRequest;
 import com.jerif.smarttaskmanager.dto.TaskResponse;
 import com.jerif.smarttaskmanager.dto.TaskUpdateRequest;
-import com.jerif.smarttaskmanager.service.TaskService;
+import com.jerif.smarttaskmanager.service.abstr.TaskService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * REST-контроллер для CRUD-операций над задачами.
+ * Веб-контроллер для операций создания, чтения, обновления и удаления задач.
  */
 @RestController
 @Slf4j

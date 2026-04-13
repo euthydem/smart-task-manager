@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Глобальный обработчик исключений REST API с единым форматом ответа.
+ * Глобальный обработчик исключений веб-интерфейса с единым форматом ответа.
  */
 @RestControllerAdvice
 @Slf4j
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Обрабатывает некорректный JSON и ошибки разбора enum или даты.
+     * Обрабатывает некорректный JSON и ошибки разбора перечислений или даты.
      * @param ex выброшенное исключение
      * @param request текущий HTTP-запрос
      * @return ответ с описанием ошибки
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Обрабатывает ошибки преобразования path variable и query параметров.
+     * Обрабатывает ошибки преобразования параметров пути и параметров строки запроса.
      * @param ex выброшенное исключение
      * @param request текущий HTTP-запрос
      * @return ответ с описанием ошибки
@@ -106,8 +106,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Формирует стандартное тело ответа с ошибкой.
-     *
-     * @param status HTTP-статус ответа
+     * @param status статус ответа
      * @param message текст ошибки
      * @param request текущий HTTP-запрос
      * @param validationErrors детали ошибок валидации, если есть
