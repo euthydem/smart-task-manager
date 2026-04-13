@@ -10,6 +10,7 @@ import com.jerif.smarttaskmanager.exception.TaskNotFoundException;
 import com.jerif.smarttaskmanager.mapper.TaskMapper;
 import com.jerif.smarttaskmanager.repository.TaskRepository;
 import com.jerif.smarttaskmanager.repository.TaskSpecifications;
+import com.jerif.smarttaskmanager.service.abstr.TaskService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Сервисный слой для CRUD-операций над задачами.
+ * Сервисный слой для операций создания, чтения, обновления и удаления задач.
  */
 @Service
 @Slf4j
 @Transactional
-public class TaskService {
+public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
@@ -33,7 +34,7 @@ public class TaskService {
      * Создаёт экземпляр сервиса задач.
      * @param taskRepository репозиторий для доступа к задачам
      */
-    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
+    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
     }
@@ -41,8 +42,9 @@ public class TaskService {
     /**
      * Создаёт новую задачу.
      * @param request запрос с данными задачи
-     * @return DTO созданной задачи
+     * @return объект передачи данных созданной задачи
      */
+    @Override
     public TaskResponse createTask(TaskCreateRequest request) {
         log.info("Создание задачи: title='{}', priority={}, dueDate={}",
                 request.getTitle(), request.getPriority(), request.getDueDate());
@@ -55,20 +57,21 @@ public class TaskService {
     /**
      * Возвращает задачу по идентификатору.
      * @param id идентификатор задачи
-     * @return DTO найденной задачи
+     * @return объект передачи данных найденной задачи
      */
-    @Transactional(readOnly = true)
+    @Transactional
+    @Override
     public TaskResponse getTaskById(Long id) {
         log.debug("Получение задачи по id={}", id);
-
         return taskMapper.toResponse(findTaskById(id));
     }
 
     /**
      * Возвращает список всех задач.
-     * @return список DTO задач
+     * @return список объектов передачи данных задач
      */
-    @Transactional(readOnly = true)
+    @Transactional
+    @Override
     public List<TaskResponse> getAllTasks(
             TaskStatus status,
             TaskPriority priority,
@@ -89,8 +92,9 @@ public class TaskService {
      * Обновляет существующую задачу.
      * @param id идентификатор задачи
      * @param request запрос с полями для обновления
-     * @return DTO обновлённой задачи
+     * @return объект передачи данных обновлённой задачи
      */
+    @Override
     public TaskResponse updateTask(Long id, TaskUpdateRequest request) {
         log.info("Обновление задачи id={}", id);
         Task task = findTaskById(id);
@@ -106,6 +110,7 @@ public class TaskService {
      * Удаляет задачу по идентификатору.
      * @param id идентификатор задачи
      */
+    @Override
     public void deleteTask(Long id) {
         Task task = findTaskById(id);
         taskRepository.delete(task);
@@ -117,6 +122,7 @@ public class TaskService {
      * @param id идентификатор задачи
      * @return найденная сущность задачи
      */
+    @Override
     public Task findTaskById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> {

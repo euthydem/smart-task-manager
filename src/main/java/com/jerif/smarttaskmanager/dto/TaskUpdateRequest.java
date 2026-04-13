@@ -13,7 +13,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- * DTO запроса на обновление задачи.
+ * Объект передачи данных запроса на обновление задачи.
  */
 @Getter
 @Setter
